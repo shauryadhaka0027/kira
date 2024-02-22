@@ -7,7 +7,7 @@ const Navbar2 = () => {
   const navigate=useNavigate()
   const logout=async()=>{
    try {
-    await axios.get("http://localhost:3030/logout")
+    await axios.get("http://localhost:3030/logout",{withCredentials:true,mode:"cors"})
     navigate("/")
    } catch (error) {
     console.log(error)

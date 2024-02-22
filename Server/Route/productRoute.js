@@ -3,7 +3,7 @@ const { ProductModel } = require("../Model/productModel");
 const productRouter = express.Router();
 const { auth } = require("../Middleware/auth.middleware");
 
-productRouter.post("/create",  async (req, res) => {
+productRouter.post("/create", auth, async (req, res) => {
   try {
     const data = new ProductModel(req.body);
     await data.save();
@@ -13,7 +13,7 @@ productRouter.post("/create",  async (req, res) => {
   }
 });
 
-productRouter.get("/", async (req, res) => {
+productRouter.get("/",auth, async (req, res) => {
   try {
     const data = await ProductModel.find();
     res.send(data);

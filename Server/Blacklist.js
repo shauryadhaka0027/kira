@@ -1,2 +1,2 @@
-const blackList=[]
-module.exports={blackList}
+let blacklist=[]
+module.exports={blacklist}

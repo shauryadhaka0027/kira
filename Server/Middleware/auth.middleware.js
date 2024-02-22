@@ -1,13 +1,19 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const access_token_Key = process.env.access_token_Key;
+const access_token_Key = process.env.access_token;
+const {blacklist}=require('../blacklist')
 
 const auth = (req, res, next) => {
     let token = req.cookies["token"] ||  req.headers.authorization; 
     console.log(token)
 
     try {
-      
+        if(token){
+            if(blacklist.includes(token)){
+                res.send({"msg":"user login again"});
+    
+            }
+        }
 
         if (token) {
             jwt.verify(token, access_token_Key, (err, decode) => {

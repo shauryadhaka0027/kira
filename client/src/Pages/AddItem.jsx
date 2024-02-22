@@ -18,15 +18,16 @@ const AddItem = () => {
     event.preventDefault();
     if (product.title && product.img && product.price && product.desc) {
       try {
-        const response = await axios.post('http://localhost:3030/product/create', product, { withCredentials: true, mode: 'cors' });
+        const response = await axios.post('http://localhost:3030/product/create', product, { withCredentials: true,mode:"cors"});
         if (response.status === 200) {
           navigate("/product");
         }
-        console.log(response)
+        console.log( "add",response.data)
         setMessage(response.data.message);
       } catch (error) {
         console.error('Error:', error);
         setMessage('Failed to add item. Please try again.');
+        alert(message)
       }
       setProduct({ title: '', desc: '', img: '', price: '' });
     } else {

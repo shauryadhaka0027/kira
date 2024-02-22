@@ -1,6 +1,6 @@
 
 import './App.css'
-import Navbar from './Components/Navbar'
+
 import AllRoute from './Pages/AllRoute'
 
 function App() {
@@ -8,7 +8,8 @@ function App() {
 
   return (
     <>
-    <AllRoute/>
+    <AllRoute/> 
+    {/* <Delete/> */}
     </>
   )
 }

@@ -5,8 +5,9 @@ require("dotenv").config()
  const {authRouter}=require("./Route/authRoute");
 const {productRouter}=require("./Route/productRoute")
 const cookieParser = require('cookie-parser');
- const {blackList}=require("./Blacklist")
-const cors=require("cors")
+ const {blacklist}=require("./blacklist")
+const cors=require("cors");
+
 
 
 
@@ -31,9 +32,9 @@ app.get('/test', (req, res) => {
 });
 
 app.get("/logout",async(req,res)=>{
-       const token = req.cookies["token"];
+       const token = req.cookies["token"] ||  req.headers.authorization
        try {
-           blackList.push(token)
+           blacklist.push(token)
            res.send({"msg":"user is logout"})
        } catch (error) {
            res.send({"msg":error})
