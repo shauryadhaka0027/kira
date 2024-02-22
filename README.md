@@ -94,7 +94,8 @@ _Install dependencies using npm:
 ## Starting the Application
 Once you have installed the dependencies, you can start the development server by running the following command:
 
--npm start
+-npm start dev
+
 
 ## Dependencies
 - express.js
