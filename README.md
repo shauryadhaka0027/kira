@@ -74,10 +74,10 @@ Welcome to our CRUD Application! This platform allows users to browse and purcha
 
 ### Edit
 
-- Click on a product to view detailed information.
+- Click on a Edit to Edit detailed information.
 
-
-
+### Delete
+ -Click On a Delete Button to delete the item
 
 
 
