@@ -78,10 +78,29 @@ Welcome to our CRUD Application! This platform allows users to browse and purcha
 
 ### Delete
  -Click On a Delete Button to delete the item
+ 
 
 
 
+# Backend 
 
+
+## Installation
+1. Clone the repository to your local machine
+
+## cd Server
+_Install dependencies using npm:
+
+## Starting the Application
+Once you have installed the dependencies, you can start the development server by running the following command:
+
+-npm start
+
+## Dependencies
+- express.js
+- Node.js
+- Mongoose
+  
 
 
 
