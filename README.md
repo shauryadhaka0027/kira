@@ -2,7 +2,7 @@
 
 Welcome to our CRUD Application! This platform allows users to browse and purchase products with various features including user authentication, AddItem, ShowItem, Edits, Delte, functionality.
 # DEPLOYLINK
-- [`crudapplicationdha02.netlify.app`]
+- `#crudapplicationdha02.netlify.app`
 
 ## Table of Contents
 - [Features](#features)
