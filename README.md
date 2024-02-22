@@ -11,8 +11,8 @@ Welcome to our CRUD Application! This platform allows users to browse and purcha
   - [User Authentication](#user-authentication)
   - [AddItem](#product-listing)
   - [EditItem](#Edit)
-  - [DELETE](
-  -
+  - [DELETE]
+  
 
 
 ## Components
@@ -76,7 +76,7 @@ Welcome to our CRUD Application! This platform allows users to browse and purcha
 
 - Click on a product to view detailed information.
 
-![Card](https://github.com/shauryadhaka0027/useEffect/assets/138813918/07f1160a-ab89-431c-a90a-ed01c951f049)
+
 
 
 
