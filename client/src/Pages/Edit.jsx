@@ -1,27 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Box, Button, FormControl, FormLabel, Input, Text, Image } from '@chakra-ui/react';
 import axios from 'axios';
+import Navbar2 from '../Components/Navbar2';
 
 const Edit = () => {
-  const { UserId } = useParams();
+  const { _id } = useParams();
   const [product, setProduct] = useState([]);
   const [editedProducts, setEditedProducts] = useState([]);
+  const navigate=useNavigate()
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:3030/product/search?UserId=${UserId}`, { withCredentials: true, mode: 'cors' });
+        const response = await axios.get(`http://localhost:3030/product/search?_id=${_id}`, { withCredentials: true, mode: 'cors' });
         setProduct(response.data);
-        
         const initialEditedProducts = response.data.map(item => ({ ...item }));
         setEditedProducts(initialEditedProducts);
       } catch (error) {
-        console.error('Error fetching products:', error);
+        console.error('Error fetching product:', error);
       }
     };
-    fetchProducts();
-  }, [UserId]);
+    fetchProduct();
+  }, [_id]);
 
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
@@ -30,17 +31,20 @@ const Edit = () => {
     setEditedProducts(updatedProducts);
   };
 
-  const handleSubmit = async (productId) => {
+  const handleSubmit = async (_id) => {
     try {
-      const editedProduct = editedProducts.find(item => item._id === productId);
-      await axios.patch(`http://localhost:3030/product/update/${productId}`, editedProduct, { withCredentials: true, mode: 'cors' });
+      const editedProduct = editedProducts.find(item => item._id === _id);
+      await axios.patch(`http://localhost:3030/product/update/${_id}`, editedProduct, { withCredentials: true, mode: 'cors' });
       console.log('Product updated successfully');
+      navigate("/product")
+
     } catch (error) {
       console.error('Error updating product:', error);
     }
   };
 
   return (
+    
     <Box mt={8}>
       {product.map((product, index) => (
         <div key={index}>

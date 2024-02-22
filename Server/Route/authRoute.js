@@ -23,30 +23,53 @@ authRouter.post("/signup",async(req,res)=>{
         res.status(400).send({"msg":error})
     }
 })
-
-authRouter.post("/login",async(req,res)=>{
-   const {email,password}=req.body;
-   try {
-    const data= await AuthModel.findOne({email});
-    if(data){
-        bcrypt.compare(password,data.password,async(err,result)=>{
-            if(result){
-                const token=jwt.sign({UserId:data.id,user:data.userName},acces_token_key,{expiresIn:"5h"})
-                res.cookie("token", token,{
-                    maxAge: 1000 * 60 * 60 *8 , 
-                   
-                    sameSite: 'none',
-                    httpOnly:true
-                });
-                res.status(200).send({"msg":"Login succesfully","token":token})
-            }else{
-                res.send({"msg":"password not match"})
-            }
-        })
+authRouter.post("/login", async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const data = await AuthModel.findOne({ email });
+        if (data) {
+            bcrypt.compare(password, data.password, async (err, result) => {
+                if (result) {
+                    const token = jwt.sign({ UserId: data.id, user: data.userName }, acces_token_key, { expiresIn: "5h" });
+                    res.cookie('token', token, {
+                        httpOnly: true,
+                        sameSite: 'none'
+                    });
+                    console.log(req.cookies["token"])
+                    res.status(200).send({ "msg": "Login successfully", "token": token });
+                } else {
+                    res.status(401).send({ "msg": "Incorrect email or password" }); 
+                }
+            })
+        } else {
+            res.status(401).send({ "msg": "Incorrect email or password" }); 
+        }
+    } catch (error) {
+        res.status(500).send({ "msg": "Internal server error" }); 
     }
-   } catch (error) {
-    res.send({"msg":error})
-   }
+});
+
+authRouter.get("/search",async(req,res)=>{
+    const {email}=req.query
+
+    try {
+        let data=await AuthModel.find({email})
+        res.send({"msg":data})
+    } catch (error) {
+        return res.status(400).json({ message: error });
+    }
+
+})
+authRouter.get("/",async(req,res)=>{
+    
+
+    try {
+        let data=await AuthModel.find()
+        res.send({"msg":data})
+    } catch (error) {
+        return res.status(400).json({ message: error });
+    }
+
 })
 
 

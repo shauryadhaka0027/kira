@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState ,useContext} from 'react'
 
 import { Box, FormControl, FormLabel, Input, Button ,Text} from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
+import { ContextApi } from '../ContextApi/ContextApiProvider';
+import Navbar from '../Components/Navbar';
 
 const Login = () => {
   const[user,setUser]=useState({email:"",password:""})
+  const { isAuth, setIsAuth ,email,setEmail} = useContext(ContextApi);
   const [message, setMessage] = useState('');
   const navigate = useNavigate(); 
   const handleUserChange=(e)=>{
@@ -19,6 +22,7 @@ const Login = () => {
         if (user.email && user.password) {
             try {
               const response = await axios.post('http://localhost:3030/user/login', user,{withCredentials:true,mode:'cors'});
+              setEmail(user.email)
               if(response.status === 200){
                  navigate("/product"); 
               }
@@ -35,6 +39,8 @@ const Login = () => {
     
       }
   return (
+    <div>
+      <Navbar/>
     <Box maxW="md" mx="auto" mt={8} p={4} borderWidth="1px" borderRadius="lg">
     <form onSubmit={handleSubmit}>
     <FormControl id="email" mt={4} isRequired>
@@ -53,12 +59,12 @@ const Login = () => {
  
 
       <Button mt={6} colorScheme="blue" type="submit">
-        Sign Up
+        Login
       </Button>
     </form>
     <Text>{message}</Text>
   </Box>
-  
+  </div>
   )
 }
 

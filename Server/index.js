@@ -2,11 +2,12 @@ const express=require('express');
 const { connection } = require('./config/db');
 const app=express();
 require("dotenv").config()
-const {authRouter}=require("./Route/authRoute");
+ const {authRouter}=require("./Route/authRoute");
 const {productRouter}=require("./Route/productRoute")
-const cookieParser = require("cookie-parser");
+const cookieParser = require('cookie-parser');
+ const {blackList}=require("./Blacklist")
 const cors=require("cors")
-app.use(cookieParser());
+
 
 
 app.use(cors({
@@ -14,7 +15,9 @@ app.use(cors({
     methods:["GET","POST","DELETE","PATCH"],
     credentials: true
   }));
+  
 app.use(express.json())
+app.use(cookieParser());
 app.use("/user",authRouter)
 app.use("/product",productRouter)
 const PORT=process.env.PORT
@@ -22,8 +25,20 @@ const PORT=process.env.PORT
 app.get("/",(req,res)=>{
     res.send({"msg":"homepage"})
 })
+app.get('/test', (req, res) => {
+    console.log(req.cookies);
+    res.send('Check console for cookies');
+});
 
-
+app.get("/logout",async(req,res)=>{
+       const token = req.cookies["token"];
+       try {
+           blackList.push(token)
+           res.send({"msg":"user is logout"})
+       } catch (error) {
+           res.send({"msg":error})
+       }
+   })
 
 app.listen(PORT,async()=>{
 

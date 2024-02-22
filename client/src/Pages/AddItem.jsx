@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Box, FormControl, FormLabel, Input, Textarea, Button, Text } from '@chakra-ui/react';
 import axios from 'axios'; 
 import { useNavigate } from 'react-router-dom'; 
+import Navbar2 from "../Components/Navbar2"
 
 const AddItem = () => {
   const [product, setProduct] = useState({ title: "", desc: "", img: "", price: "" });
@@ -34,6 +35,8 @@ const AddItem = () => {
   };
 
   return (
+    <div>
+      <Navbar2/>
     <Box maxW="md" mx="auto" mt={8} p={4} borderWidth="1px" borderRadius="lg">
       <form onSubmit={handleSubmit}>
         <FormControl id="title" isRequired>
@@ -62,6 +65,7 @@ const AddItem = () => {
       </form>
       <Text>{message}</Text>
     </Box>
+    </div>
   );
 };
 
